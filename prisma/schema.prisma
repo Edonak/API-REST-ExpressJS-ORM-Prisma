@@ -14,7 +14,7 @@ datasource db {
 }
 
 model Ordinateur {
-  Tag String  @id @unique
+  Tag String @unique
   Modele String
   Fabriquant String
   apprenants Apprenant[]
