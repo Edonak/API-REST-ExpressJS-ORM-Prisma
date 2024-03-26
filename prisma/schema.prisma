@@ -20,33 +20,61 @@ model Ordinateur {
   apprenants Apprenant[]
 }
 model Apprenant {
-  Matricule String @unique
-  Prenom String
-  Nom String
-  Postnom String
-  Date_de_naissance DateTime
-  Adresse String
-  Email String @unique
-  Telephone String
-  ordinateur Ordinateur? @relation( fields: [ordinateurTag], references: [Ordinateur]) 
+  matricule String @unique
+  prenom String
+  nom String
+  postnom String
+  fate_de_naissance DateTime
+  adresse String
+  email String @unique
+  telephone String
+  Ordinateur Ordinateur? @relation( fields: [ordinateurTag], references: [Tag]) 
   ordinateurTag String?
+  Cohorte Cohorte? @relation(fields: [cohorteCode], references: [Code])
+  cohorteCode String?
+  gerer Etre_Gerer[]
 }
 model Cohorte {
   Code String @unique
   Description String
+  apprenants Apprenant[]
+  Session Session? @relation(fields: [sessionId], references: [Id])
+  sessionId Int?
+  assigner Etre_Assigner []
 }
-// model Session {
-//   Id Int @default(autoincrement())
-//   Annee DateTime
-//   Type String
-//   Ville String
-// }
+ model Session {
+  Id Int @unique @default(autoincrement())
+  Annee DateTime
+  Type String
+  Ville String
+  Cohortes Cohorte []
+  Coaches Coaches []
+}
+model Coaches {
+  Id Int @id @unique @default(autoincrement())
+  Nom String
+  prenom String
+  Email String @unique
+  Telephone String
+  Specialisation String
+  Session Session? @relation(fields: [sessionId], references: [Id])
+  sessionId Int?
+  assigner Etre_Assigner []
+  gerer Etre_Gerer[]
+}
+model Etre_Gerer{
+  Id Int @unique @default(autoincrement())
+  Coaches Coaches? @relation(fields: [CoachesId], references: [Id])
+  CoachesId Int?
+  apprenants Apprenant? @relation(fields: [apprenantMatricule], references: [matricule])
+  apprenantMatricule String?
+}
+model Etre_Assigner{
+  Id Int @unique @default(autoincrement())
+  Cohorte Cohorte? @relation(fields: [cohorteCode], references: [Code])
+  cohorteCode String?
+  Coaches Coaches? @relation(fields: [CoachesId], references: [Id])
+  CoachesId Int?
+}
 
-// model Coaches {
-//   Id Int @id @default(autoincrement())
-//   Nom String
-//   prenom String
-//   Email String @unique
-//   Telephone String
-//   Specialisation String
-// }
+
