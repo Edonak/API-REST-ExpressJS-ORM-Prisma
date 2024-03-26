@@ -17,6 +17,7 @@ model Ordinateur {
   Tag String  @id @unique
   Modele String
   Fabriquant String
+  apprenants Apprenant[]
 }
 model Apprenant {
   Matricule String @unique
@@ -27,6 +28,8 @@ model Apprenant {
   Adresse String
   Email String @unique
   Telephone String
+  ordinateur Ordinateur? @relation( fields: [ordinateurTag], references: [Ordinateur]) 
+  ordinateurTag String?
 }
 model Cohorte {
   Code String @unique
