@@ -10,7 +10,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("postgresql://root:edonak@localhost:5432/edonak")
+  url      = env("postgresql://root:Edonak@localhost:5432/mydb")
 }
 
 model Ordinateur {
@@ -31,11 +31,11 @@ model Apprenant {
   Ordinateur Ordinateur? @relation( fields: [ordinateurTag], references: [Tag]) 
   ordinateurTag String?
   Cohorte Cohorte? @relation(fields: [cohorteCode], references: [Code])
-  cohorteCode String?
+  cohorteCode Int?
   gerer Etre_Gerer[]
 }
 model Cohorte {
-  Code String @unique
+  Code Int @unique @default(autoincrement())
   Description String
   apprenants Apprenant[]
   Session Session? @relation(fields: [sessionId], references: [Id])
@@ -72,7 +72,7 @@ model Etre_Gerer{
 model Etre_Assigner{
   Id Int @unique @default(autoincrement())
   Cohorte Cohorte? @relation(fields: [cohorteCode], references: [Code])
-  cohorteCode String?
+  cohorteCode Int?
   Coaches Coaches? @relation(fields: [CoachesId], references: [Id])
   CoachesId Int?
 }
