@@ -10,7 +10,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url      = env("postgresql://root:edonak@localhost:5432/edonak")
 }
 
 model Ordinateur {
@@ -21,9 +21,9 @@ model Ordinateur {
 }
 model Apprenant {
   matricule String @unique
-  prenom String
   nom String
   postnom String
+  prenom String
   fate_de_naissance DateTime
   adresse String
   email String @unique
