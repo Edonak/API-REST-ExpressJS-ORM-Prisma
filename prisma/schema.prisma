@@ -10,7 +10,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("postgresql://root:Edonak@localhost:5432/mydb")
+  url      = env("DATABASE_URL")
 }
 
 model Ordinateur {
